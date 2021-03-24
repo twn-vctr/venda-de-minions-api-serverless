@@ -1,0 +1,38 @@
+{
+    "definitions": {},
+    "type": "object",
+    "required": [
+        "email",
+        "cep",
+        "endereco",
+        "produtos",
+        "precoTotal"
+    ],
+    "properties": {
+        "email": {
+            "type": "string",
+            "title": "email",
+            "minLength": 7,
+            "maxLength": 30
+        },
+        "cep": {
+            "type": "string",
+            "title": "cep",
+            "pattern": "^([0-9]{5})-[0-9]{3}"
+        },
+        "endereco": {
+            "type": "string",
+            "title": "endereco",
+            "minLength": 10,
+            "maxLength": 50
+        },
+        "precoTotal": {
+            "type": "number",
+            "title": "precoTotal"
+        },
+        "produtos": {
+            "type": "array",
+            "title": "precoTotal"
+        }
+    }
+}

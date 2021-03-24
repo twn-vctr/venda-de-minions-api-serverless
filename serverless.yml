@@ -1,0 +1,85 @@
+service: minions-loja-api
+
+# Create an optimized package for our functions
+package:
+  individually: true
+
+plugins:
+  - serverless-bundle # Package our functions with Webpack
+  - serverless-offline
+  - serverless-dotenv-plugin # Load .env as environment variables
+
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: prod
+  region: us-east-2
+  memorySize: 512
+  iamRoleStatements:
+    - Effect: "Allow"
+      Action:
+        - dynamodb:*
+      Resource: "*"
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - http:
+          path: hello
+          method: get
+  getProducts:
+    handler: src/functions/getProducts.getProducts
+    events:
+      - http:
+          path: /products
+          method: get
+  pegarUsuarios:
+    handler: src/functions/pegarUsuarios.pegarUsuarios
+    events:
+      - http:
+          path: /users
+          method: get
+          cors: true
+  registrarUsuario:
+    handler: src/functions/registrarUsuario.registrarUsuario
+    events:
+      - http:
+          path: /users
+          method: post
+          cors: true
+          request:
+            schema:
+              application/json: ${file(src/schema/registrar_usuario.json)}
+  comprarProdutos:
+    handler: src/functions/comprarProdutos.comprarProdutos
+    events:
+      - http:
+          path: /user/products
+          method: post
+          cors: true
+          request:
+            schema:
+              application/json: ${file(src/schema/comprar_produtos.json)} 
+  logIn:
+    handler: src/functions/logIn.logIn
+    events:
+      - http:
+          path: /log-in
+          method: post
+          cors: true
+          request:
+            schema:
+              application/json: ${file(src/schema/log_in.json)}
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'

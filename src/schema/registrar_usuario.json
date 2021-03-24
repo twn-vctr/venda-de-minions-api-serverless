@@ -1,0 +1,37 @@
+{
+    "definitions": {},
+    "type": "object",
+    "required": [
+        "email",
+        "nome",
+        "senha",
+        "confirmaSenha"
+    ],
+    "properties": {
+        "email": {
+            "type": "string",
+            "title": "email",
+            "format": "email",
+            "minLength": 7,
+            "maxLength": 30
+        },
+        "username": {
+            "type": "string",
+            "title": "nome",
+            "minLength": 3,
+            "maxLength": 12
+        },
+        "password": {
+            "type": "string",
+            "title": "senha",
+            "minLength": 5,
+            "maxLength": 12
+        },
+        "passwordConfirmation": {
+            "type": "string",
+            "title": "confirmaSenha",
+            "minLength": 5,
+            "maxLength": 12
+        }
+    }
+}

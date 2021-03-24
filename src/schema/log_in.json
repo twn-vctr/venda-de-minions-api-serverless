@@ -1,0 +1,23 @@
+{
+    "definitions": {},
+    "type": "object",
+    "required": [
+        "email",
+        "senha"
+    ],
+    "properties": {
+        "email": {
+            "type": "string",
+            "title": "email",
+            "format": "email",
+            "minLength": 7,
+            "maxLength": 30
+        },
+        "password": {
+            "type": "string",
+            "title": "senha",
+            "minLength": 5,
+            "maxLength": 12
+        }
+    }
+}
